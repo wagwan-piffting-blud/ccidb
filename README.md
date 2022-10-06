@@ -10,7 +10,7 @@ I am Wags, as the collective internet refers to me by. You can view my website [
 
 _Where_ can I view more information (like, how do I get started?)
 ---
-You may view the [online manual](https://ccidb.wagspuzzle.space/manual/) for getting started info for most operating systems and [my personal blog (The BlARG) post](https://wagspuzzle.space/blarg/2022-11-12-ccidb) for more background info and read about some "best practices" I used when coding CCIDB.
+You may view the [online manual](https://ccidb.wagspuzzle.space/manual/) for getting started info and [my personal blog (The BlARG) post](https://wagspuzzle.space/blarg/2022-11-12-ccidb) for more background info and read about some "best practices" I used when coding CCIDB.
 
 _How_ do I report a bug in CCIDB?
 ---
