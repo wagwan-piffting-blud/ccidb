@@ -1,3 +1,4 @@
+![CCIDB_Banner](https://user-images.githubusercontent.com/68403205/194215029-76fde9a1-960e-4753-bd92-cd5fd11125a5.png)
 # CCIDB (Coin Collection Information DataBase)
 
 _What_ is this?
