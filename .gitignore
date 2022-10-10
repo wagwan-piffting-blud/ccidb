@@ -1,0 +1,7 @@
+#Temporary Notepad++ files.
+*.php~
+*.js~
+
+#Convenience scripts.
+*.bat
+*.bat~
