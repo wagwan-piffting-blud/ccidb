@@ -49,15 +49,15 @@ if(isset($_SESSION['statusstring']) && !empty($_SESSION['statusstring']) && isse
 		<div class="supercenter">
 			<?php
 				if($_GET['pagesize'] == 10) {
-					if(($_GET['startat'] + 20) >= ($_SESSION["nrows"] - 1)) {
+					if(($_GET['startat'] + 20) >= $_SESSION["nrows"]) {
 						$setlastnum = true;
 					}
 					
 					if($_GET['startat'] == 0 && (($_GET['startat'] + 10) <= ($_SESSION["nrows"] - 1))) { ?>
 						<div class="flexbox-search">
-							<span class="invisible"><button>############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
+							<span class="invisible"><button class="">############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
 							<span><?php print_r($_SESSION['statusstring']); ?><br>You are on records #<?php print_r(($_GET['startat'] + 1) . "-"); if(($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { print_r($_SESSION['nrows']); } else { print_r($_GET['startat'] + 10); } ?>/<?php print_r($_SESSION['nrows']); ?>.</span>
-							<span><a href="searchresults.php?startat=<?php print_r($_GET['startat'] + 10); ?>&pagesize=10"><button>Go forward<span class="invisible">0</span> <?php if(isset($setlastnum) && $setlastnum === true) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
+							<span><a class="" href="searchresults.php?startat=<?php print_r($_GET['startat'] + 10); ?>&pagesize=10"><button class="">Go forward<span class="invisible">0</span> <?php if(isset($setlastnum) && $setlastnum === true) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
 						</div>
 						<hr>
 					<?php 
@@ -76,9 +76,9 @@ if(isset($_SESSION['statusstring']) && !empty($_SESSION['statusstring']) && isse
 					
 					elseif($_GET['startat'] == 0 && ($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { ?>
 						<div class="flexbox-search">
-							<span class="invisible"><button>############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
+							<span class="invisible"><button class="">############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
 							<span><?php print_r($_SESSION['statusstring']); ?><br>You are on records #<?php print_r(($_GET['startat'] + 1) . "-"); if(($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { print_r($_SESSION['nrows']); } else { print_r($_GET['startat'] + 10); } ?>/<?php print_r($_SESSION['nrows']); ?>.</span>
-							<span class="invisible"><button>############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
+							<span class="invisible"><button class="">############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
 						</div>
 						<hr>
 					<?php 
@@ -95,11 +95,11 @@ if(isset($_SESSION['statusstring']) && !empty($_SESSION['statusstring']) && isse
 						}
 					}
 					
-					elseif(($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { ?>
+					elseif(($_GET['startat'] + 10) >= $_SESSION["nrows"]) { ?>
 						<div class="flexbox-search">
-							<span><a href="searchresults.php?startat=<?php print_r($_GET['startat'] - 10); ?>&pagesize=10"><button>Go backward <?php print_r($_GET['pagesize']); ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
+							<span><a class="" href="searchresults.php?startat=<?php print_r($_GET['startat'] - 10); ?>&pagesize=10"><button class="">Go backward <?php print_r($_GET['pagesize']); ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
 							<span><?php print_r($_SESSION['statusstring']); ?><br>You are on records #<?php print_r(($_GET['startat'] + 1) . "-"); if(($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { print_r($_SESSION['nrows']); } else { print_r($_GET['startat'] + 10); } ?>/<?php print_r($_SESSION['nrows']); ?>.</span>
-							<span class="invisible"><button>############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
+							<span class="invisible"><button class="">############<?php if(($_GET['startat'] + 10) >= (($_SESSION["nrows"] - $lastnum) / 10)) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></span>
 						</div>
 						<hr>
 					<?php 
@@ -118,9 +118,9 @@ if(isset($_SESSION['statusstring']) && !empty($_SESSION['statusstring']) && isse
 					
 					else { ?>
 						<div class="flexbox-search">
-							<span><a href="searchresults.php?startat=<?php print_r($_GET['startat'] - 10); ?>&pagesize=10"><button>Go backward <?php print_r($_GET['pagesize']); ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
-							<span><?php print_r($_SESSION['statusstring']); ?><br>You are on records #<?php print_r(($_GET['startat'] + 1) . "-"); if(($_GET['startat'] + 10) >= ($_SESSION["nrows"] - 1)) { print_r($_SESSION['nrows']); } else { print_r($_GET['startat'] + 10); } ?>/<?php print_r($_SESSION['nrows']); ?>.</span>
-							<span><a href="searchresults.php?startat=<?php print_r($_GET['startat'] + 10); ?>&pagesize=10"><button>Go forward<span class="invisible">0</span> <?php if(isset($setlastnum) && $setlastnum === true) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
+							<span><a class="" href="searchresults.php?startat=<?php print_r($_GET['startat'] - 10); ?>&pagesize=10"><button class="">Go backward <?php print_r($_GET['pagesize']); ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
+							<span><?php print_r($_SESSION['statusstring']); ?><br>You are on records #<?php print_r(($_GET['startat'] + 1) . "-"); if(($_GET['startat'] + 10) >= $_SESSION["nrows"]) { print_r($_SESSION['nrows']); } else { print_r($_GET['startat'] + 10); } ?>/<?php print_r($_SESSION['nrows']); ?>.</span>
+							<span><a class="" href="searchresults.php?startat=<?php print_r($_GET['startat'] + 10); ?>&pagesize=10"><button class="">Go forward<span class="invisible">0</span> <?php if(isset($setlastnum) && $setlastnum === true) { print_r($lastnum); } else { print_r($_GET['pagesize']); } ?> record<?php if($_GET['pagesize'] > 1 || $_GET['pagesize'] == 0) { print_r("s"); } else { print_r(""); } ?></button></a></span>
 						</div>
 						<hr>
 					<?php 
@@ -145,9 +145,9 @@ if(isset($_SESSION['statusstring']) && !empty($_SESSION['statusstring']) && isse
 	<div class="supercentercont">
 		<div class="supercenter">
 			<form name="form" action="search.php" method="post">
-				<button id="navaway" type="submit">Back to search</button>
+				<button class="navaway" type="submit">Back to search</button>
 			</form>
-			<a id="navaway" href="index.php"><button type="button">Return to top page</button></a>
+			<a class="navaway" href="index.php"><button class="navaway" type="button">Return to top page</button></a>
 		</div>
 	</div>
 	<script src="navigateaway.js"></script>

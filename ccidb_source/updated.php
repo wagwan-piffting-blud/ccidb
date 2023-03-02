@@ -23,7 +23,6 @@ if(isset($_SESSION["statusstring"]) && $_SESSION["statusstring"] != "") {
 	if(isset($_SESSION["postdata"])) {
 		unset($_SESSION["statusstring"]);
 		unset($_SESSION["statusclass"]);
-		unset($_SESSION["postdata"]);
 	}
 
 	elseif(!isset($_SESSION["postdata"])) {

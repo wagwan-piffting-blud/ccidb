@@ -356,6 +356,8 @@ else {
 				<form id="form" action="<?php print_r(basename($_SERVER["SCRIPT_FILENAME"])); ?>" method="post" autocomplete="off">
 					<input type="hidden" id="csrf" name="csrf" value="<?php print_r($_SESSION["csrf"]); ?>" required />
 					<input type="hidden" id="actkey" name="actkey" value="<?php print_r($final); ?>" autocomplete="off" required readonly>
+					<input type="hidden" id="issuedate" name="issuedate" value="<?php print_r(date("Y-m-d")); ?>" autocomplete="off" required readonly>
+					<input type="hidden" id="validuntil" name="validuntil" value="2199-12-31" autocomplete="off" required readonly>
 					<input type="hidden" id="changeunpw" name="changeunpw" value="yes" required />
 					<span>
 						<label for="colorscheme">Default Color Scheme:</label>&nbsp;

@@ -69,8 +69,8 @@ function echodoc() {
 				<br>
 				<div class="supercentercont">
 				    <div class="supercenter">
-                        <button type="submit" form="updateform">Submit</button>
-				        <a href="index.php" id="navaway"><button type="button">Return to top page</button></a>  
+                        <button class="" type="submit" form="updateform">Submit</button>
+				        <a href="index.php" class="navaway"><button type="button">Return to top page</button></a>  
 				    </div>
 				</div>
 				<script src="enter.js"></script>

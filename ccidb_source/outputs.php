@@ -40,7 +40,7 @@ if($filetoinclude === "search.php") { ?>
 						<br class="mobileonly">
 						<span id="year"><?php print_r("<label>Year: <br><input class=\"medshortinput\" type=\"text\" id=\"year\" name=\"year\" value=\"\" autocomplete=\"off\"></label>"); ?></span>
 						<br class="mobileonly">
-						<span id="mintmark"><?php print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mintmark\" name=\"mintmark\" value=\"\" autocomplete=\"off\"></label>"); ?></span>
+						<span id="mintmark"><?php print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mint\" name=\"mint\" value=\"\" autocomplete=\"off\"></label>"); ?></span>
 						<br class="mobileonly">
 						<span id="denomination"><?php print_r("<label>Denomination: <br><input class=\"medshortinput\" type=\"text\" id=\"denomination\" name=\"denomination\" value=\"\" autocomplete=\"off\"></label>"); ?></span>
 						<br class="mobileonly">
@@ -95,6 +95,10 @@ elseif($filetoinclude === "show_output.php") {
 		$skip = 0;
 		
 		${$ident} = $_SESSION["string"][$ident];
+		
+		if(${$ident} == null) {
+			${$ident} = '';
+		}
 		
 		${$ident} = preg_replace("/(https?:\/\/?[^\s.]+\.[\w][^\s]+)/", "<span><a href=\"$1\" class=\"new_window\">$1</a></span>", ${$ident});
 		
@@ -504,8 +508,34 @@ elseif($filetoinclude === "update.php") {
 	}
 	
 	foreach($allcolumns as $ident => $data) {
-    	if(isset($row['type'])) {
+    	if(isset($row['type']) && !isset($_SESSION["postdata"])) {
 			${$ident} = $row[$ident];
+		}
+		
+		elseif(isset($row['type']) && isset($_SESSION["postdata"])) {
+			$list = array("nnh", "melt", "hasimg", "img_obverse", "img_reverse", "img_bonus1", "img_bonus2", "img_bonus3", "img_bonus4");
+			
+			if(!in_array($ident, $list)) {
+				${$ident} = $row[$ident];
+			}
+			
+			elseif($ident == "nnh" || $ident == "melt") {
+				if(isset($_SESSION["postdata"]['nnh']) && $_SESSION["postdata"]['nnh'] == "on") {
+					$row['nnh'] = 1;
+				}
+				
+				else {
+					$row['nnh'] = 0;
+				}
+				
+				if(isset($_SESSION["postdata"]['melt']) && $_SESSION["postdata"]['melt'] == "on") {
+					$row['melt'] = 1;
+				}
+				
+				else {
+					$row['melt'] = 0;
+				}
+			}
 		}
     } ?>
         <div class="containerform">
@@ -513,7 +543,7 @@ elseif($filetoinclude === "update.php") {
 				<input type="hidden" id="csrf" name="csrf" value="<?php print_r($_SESSION['csrf']);?>" required>
 				<div id="leftmostform">
 					<div id="datalinediv">
-						<?php if(!isset($row["nnh"]) && !isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\"></label>"); } elseif($row["nnh"] === 1 && isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\" checked></label>"); } elseif($row["nnh"] === 0 && isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\"></label>"); } ?>
+						<?php if(!isset($row["nnh"]) && !isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\"></label>"); } elseif(isset($row["nnh"]) && $row["nnh"] === 1 && isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\" checked></label>"); } elseif(isset($row["nnh"]) && $row["nnh"] === 0 && isset($setme)) { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\"></label>"); } else { print_r("<label>Needs new holder?&nbsp;<input type=\"checkbox\" id=\"nnh\" name=\"nnh\" autocomplete=\"off\"></label>"); } ?>
 						<div class="separator"></div>
 						<br class="mobileonly">
 						<span id="dataline"><?php if(!isset($barcode) && !isset($setme)) { 
@@ -550,7 +580,7 @@ elseif($filetoinclude === "update.php") {
 																		$exists = $stmt2->fetch();
 																		if(!$exists) {
 																			$keepgoing = false;
-																			print_r("<label class=\"required\">Barcode: <br><input class=\"slightlylonginput\" type=\"text\" id=\"" . 'barcode' . "\" name=\"" . 'barcode' . "\" value=\"" . $generated . "\" autocomplete=\"off\" pattern=\"\d*\" readonly required></label><br><br>");
+																			print_r("<label class=\"required\">Barcode: <br><input class=\"slightlylonginput\" type=\"text\" id=\"" . 'barcode' . "\" name=\"" . 'barcode' . "\" value=\"" . str_pad($generated, 12, "0", STR_PAD_LEFT) . "\" autocomplete=\"off\" pattern=\"\d*\" readonly required></label><br><br>");
 																			break;
 																		}
 																		
@@ -571,7 +601,7 @@ elseif($filetoinclude === "update.php") {
 																	die();
 																}
 															}
-														} else { print_r("<label class=\"required\">Barcode: <br><input class=\"slightlylonginput\" type=\"text\" id=\"" . 'barcode' . "\" name=\"" . 'barcode' . "\" value=\"" . $row['barcode'] . "\" autocomplete=\"off\" pattern=\"\d*\" readonly required></label><br><br>"); } ?></span>
+														} else { print_r("<label class=\"required\">Barcode: <br><input class=\"slightlylonginput\" type=\"text\" id=\"" . 'barcode' . "\" name=\"" . 'barcode' . "\" value=\"" . str_pad($row['barcode'], 12, "0", STR_PAD_LEFT) . "\" autocomplete=\"off\" pattern=\"\d*\" readonly required></label><br><br>"); } ?></span>
 														<div class="separator"></div>
 						<span id="dataline2"><?php if(!isset($line) && !isset($setme)) {
 																$sql1 = "SELECT MAX(line) FROM " . $_SESSION["tablename"] . " WHERE line != '123456';";
@@ -615,7 +645,7 @@ elseif($filetoinclude === "update.php") {
 						<br class="mobileonly">
 						<span id="year"><?php if(!isset($year) && !isset($setme)) { print_r("<label>Year: <br><input class=\"medshortinput\" type=\"text\" id=\"year\" name=\"year\" value=\"\" autocomplete=\"off\"></label>"); } elseif(isset($year) && isset($setme)) { print_r("<label>Year: <br><input class=\"medshortinput\" type=\"text\" id=\"year\" name=\"year\" value=\"" . $row['year'] . "\" autocomplete=\"off\"></label>"); } ?></span>
 						<br class="mobileonly">
-						<span id="mintmark"><?php if(!isset($mintmark) && !isset($setme)) { print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mintmark\" name=\"mintmark\" value=\"\" autocomplete=\"off\"></label>"); } elseif(isset($mintmark) && isset($setme)) { print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mintmark\" name=\"mintmark\" value=\"" . $row['mintmark'] . "\" autocomplete=\"off\"></label>"); } ?></span>
+						<span id="mintmark"><?php if(!isset($mint) && !isset($setme)) { print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mint\" name=\"mint\" value=\"\" autocomplete=\"off\"></label>"); } elseif(isset($mint) && isset($setme)) { print_r("<label>Mint Mark: <br><input class=\"medshortinput\" type=\"text\" id=\"mint\" name=\"mint\" value=\"" . $row['mint'] . "\" autocomplete=\"off\"></label>"); } ?></span>
 						<br class="mobileonly">
 						<span id="denomination"><?php if(!isset($denomination) && !isset($setme)) { print_r("<label>Denomination: <br><input class=\"medshortinput\" type=\"text\" id=\"denomination\" name=\"denomination\" value=\"\" autocomplete=\"off\"></label>"); } elseif(isset($denomination) && isset($setme)) { print_r("<label>Denomination: <br><input class=\"medshortinput\" type=\"text\" id=\"denomination\" name=\"denomination\" value=\"" . $row['denomination'] . "\" autocomplete=\"off\"></label>"); } ?></span>
 						<br class="mobileonly">
@@ -627,7 +657,7 @@ elseif($filetoinclude === "update.php") {
 						<br class="mobileonly">
 						<span id="composition_amount"><?php if(!isset($composition_amount) && !isset($setme)) { print_r("<label>Composition Amount: <br><input class=\"normalinput\" type=\"text\" id=\"composition_amount\" name=\"composition_amount\" value=\"\" autocomplete=\"off\"></label>"); } elseif(isset($composition_amount) && isset($setme)) { print_r("<label>Composition Amount: <br><input class=\"normalinput\" type=\"text\" id=\"composition_amount\" name=\"composition_amount\" value=\"" . $row['composition_amount'] . "\" autocomplete=\"off\"></label>"); } ?></span>
 						<br class="mobileonly">
-						<span id="melt"><?php if(!isset($row["melt"]) && !isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\"></label>"); } elseif($row["melt"] === 1 && isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\" checked></label>"); } elseif($row["melt"] === 0 && isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\"></label>"); } ?></span>
+						<span id="melt"><?php if(!isset($row["melt"]) && !isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\"></label>"); } elseif(isset($row["melt"]) && $row["melt"] === 1 && isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\" checked></label>"); } elseif(isset($row["melt"]) && $row["melt"] === 0 && isset($setme)) { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\"></label>"); } else { print_r("<label>Display melt values?&nbsp;<input type=\"checkbox\" id=\"melt\" name=\"melt\" autocomplete=\"off\"></label>"); }?></span>
 					</div>
 				</div>
 				<div class="separatorform"></div>
@@ -687,8 +717,8 @@ elseif($filetoinclude === "searchresults.php") {
 				else {
 					$_SESSION['tens'] = 10;
 					$_SESSION['i3'] = 0;
-					preg_match('/(\d)\D*$/', $_SESSION['nrows'], $m);
-					$lastnum = $m[1];
+					preg_match('/(\d)\d*$/', $_SESSION['nrows'], $m);
+					$lastnum = $m[0];
 				}
 			}
 		?>
@@ -720,10 +750,16 @@ elseif($filetoinclude === "searchresults.php") {
 						$skip = 0;
 						
 						if($skip === 0) {
-							${$ident} = $temparray[$_SESSION['i3']][$ident];
+							if(!isset($temparray[$_SESSION['i3']][$ident])) {
+								break;
+							}
 							
-							if($ident === "barcode") {
-								${$ident} = str_pad(${$ident}, 12, "0", STR_PAD_LEFT);
+							else {
+								${$ident} = $temparray[$_SESSION['i3']][$ident];
+
+								if($ident === "barcode") {
+									${$ident} = str_pad(${$ident}, 12, "0", STR_PAD_LEFT);
+								}
 							}
 						}
 					}
@@ -955,6 +991,10 @@ elseif($filetoinclude === "delrecordconfirm.php") {
 		$skip = 0;
 		
 		${$ident} = $_SESSION["stmtresult"][$ident];
+		
+		if(${$ident} == null) {
+			${$ident} = '';
+		}
 		
 		${$ident} = preg_replace("/(https?:\/\/?[^\s.]+\.[\w][^\s]+)/", "<span><a href=\"$1\" class=\"new_window\">$1</a></span>", ${$ident});
 		

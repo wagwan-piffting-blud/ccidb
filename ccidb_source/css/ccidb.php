@@ -472,8 +472,8 @@ div#tools {
 }
 
 #mapdiv {
-	width: 75%;
-	height: 75%;
+	width: 83vw;
+	height: 80vh;
 	text-align: center !important;
 	display: inline-block;
 }

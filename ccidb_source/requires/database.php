@@ -1,8 +1,8 @@
 <?php
 
-$_SESSION['postgres_username'] = 	  'YOUR_USERNAME_HERE';
-$_SESSION['postgres_password'] = 	  'YOUR_PASSWORD_HERE';
-$_SESSION['pgsql_start_password'] =   'YOUR_PGSQL_PASS_HERE';
+$_SESSION['postgres_username'] = 	  'YOUR_DIFFERENT_USERNAME_HERE';
+$_SESSION['postgres_password'] = 	  'YOUR_DIFFERENT_PASSWORD_HERE';
+$_SESSION['pgsql_start_password'] =   'postgres';
 
 //DO NOT TOUCH ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU ARE DOING!!!
 $host =                               '127.0.0.1';

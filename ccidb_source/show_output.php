@@ -17,14 +17,14 @@ if(isset($_SESSION["string"])) {
 					<form id="formitself" name="form" action="lookup.php" method="post">
 						<input type="text" id="inputid" name="inputid" value="" autocomplete="off" autofocus="autofocus" pattern="\d*" maxlength="22" required>
 						<input type="hidden" name="action" value="Submit">
-						<button type="submit">Submit</button>
-						<a href="takeapic.php" class="mobileonly"><button class="mobileonly" type="button">Take A Picture</button></a>
+						<button type="submit" class="navaway">Submit</button>
+						<a href="takeapic.php" class="navaway mobileonly"><button class="mobileonly" type="button">Take A Picture</button></a>
 					</form>
 				</div>
 				<div class="hrsplit"></div>
 				<div id="buttons">
-					<?php if(isset($_SESSION["string"]['description']) && !empty($_SESSION["string"]['description'])) { ?><button id="updaterecord" class="danger">Update This Record</button><?php } else { ?><button id="updaterecord">Create This Record</button><?php } if(isset($_SESSION["string"]['hasimg']) && !empty($_SESSION["string"]['hasimg'])) { ?><button id="deleteimage" class="danger">Delete Images</button><?php } else { ?><button id="uploadimage">Upload Images</button><?php } ?>
-					<a href="index.php"><button type="button">Return to top page</button></a>
+					<?php if(isset($_SESSION["string"]['description']) && !empty($_SESSION["string"]['description'])) { ?><button id="updaterecord" class="danger">Update This Record</button><?php } else { ?><button id="updaterecord" class="" >Create This Record</button><?php } if(isset($_SESSION["string"]['hasimg']) && !empty($_SESSION["string"]['hasimg'])) { ?><button id="deleteimage" class="danger">Delete Images</button><?php } else { ?><button class="" id="uploadimage">Upload Images</button><?php } ?>
+					<a class="navaway" href="index.php"><button class="navaway" type="button">Return to top page</button></a>
 				</div>
 			</div>
 			<div class="hrsplit"></div>

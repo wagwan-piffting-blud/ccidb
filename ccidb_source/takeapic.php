@@ -47,63 +47,62 @@ if(isset($_FILES) && !empty($_FILES)) {
 	
 	$keepgoing = true;
 	
-	while($keepgoing === true) {
-		$cmd = "java -jar " . getcwd() . "/applications.jar BatchScanMicroQrCodes -i " . $takeapic . $ext . " -o " . getcwd() . "/qrs.txt";
-		
-		$pipes = array();
-		
-		$descriptors = array(
-			0 => array("pipe", "r"),
-			1 => array("file", getcwd() . "/errors.txt", "a"),
-			2 => array("file", getcwd() . "/output.txt", "a"),
-		);
-		
-		$dumpme = proc_open($cmd, $descriptors, $pipes) or die("Can't open process!");
-		
-		if(file_get_contents(getcwd() . "/qrs.txt")) {
-			$temp = file_get_contents(getcwd() . "/qrs.txt");
+	while($keepgoing == true) {
+		if(file_exists($takeapic . $ext)) {
 			$keepgoing = false;
+			
+			$cmd = "/bin/python3.10 takeapic.py " . $takeapic . $ext;
+			
+			$pipes = array();
+			
+			$descriptors = array(
+				0 => array("pipe", "r"),
+				1 => array("pipe", "w"),
+				2 => array("file", "/tmp/errors.txt", "a"),
+			);
+			
+			$dumpme = proc_open($cmd, $descriptors, $pipes) or die("Can't open process!");
+			
+			$final = "";
+			
+			if(is_resource($dumpme)) {
+				while (!feof($pipes[1])) {
+					$final .= fgets($pipes[1], 1024);
+				}
+				
+				fclose($pipes[1]);
+				
+				proc_close($dumpme);
+			}
+			
+			if(preg_match_all("/^Barcode: (\d{12})$/", $final, $pregresult)) {
+				if(isset($pregresult[1][0])) {
+					setcookie("barcode", $pregresult[1][0], time() + 3600);
+					unlink($takeapic . $ext);
+					echodoc();
+				}
+			}
+			
+			else {
+				unlink($takeapic . $ext);
+				require_once("template.php");
+				printpagestart("Failure!"); ?>
+					<span class="bad">Error: <?php print_r($final); ?></span>
+					<br>
+					<br>
+					<form name="form" action="<?php print_r(basename($_SERVER["SCRIPT_FILENAME"])); ?>" method="post">
+						<button type="submit" value="submit">Return to upload</button>
+						<br>
+						<a href="index.php"><button type="button">Return to top page</button></a>
+					</form>
+			<?php
+				printpageend();
+			}
 		}
-	}
-	
-	$tempasarray = explode("\n", $temp);
-	$runcount = 0;
-    
-	foreach($tempasarray as $key => $data) {
-		$runcount += 1;
 		
-		if(preg_match_all("/^\d{12}$/", $data, $matches)) {
-			$final = $matches[0][0];
-			break;
+		else {
+			$keepgoing = true;
 		}
-		
-		elseif($runcount == count($tempasarray)) {
-			$final = "No barcodes detected. Please take a new picture and try again.";
-			break;
-		}
-	}
-	
-	if(preg_match_all("/^\d{12}$/", $final)) {
-		setcookie("barcode", $final, time() + 3600);
-		echodoc();
-	}
-	
-	else {
-		if(preg_match_all("/^\d/", $final)) {
-			$final = $final . " isn't a valid barcode. Please try again.";
-		}
-		
-		require_once("template.php");
-		printpagestart("Failure!"); ?>
-			<span class="bad">Error: <?php print_r($final); ?></span>
-			<br>
-			<br>
-			<form name="form" action="<?php print_r(basename($_SERVER["SCRIPT_FILENAME"])); ?>" method="post">
-				<button type="submit" value="submit">Return to upload</button>
-				<a href="index.php"><button type="button">Return to top page</button></a>
-			</form>
-	<?php
-		printpageend();
 	}
 }
 

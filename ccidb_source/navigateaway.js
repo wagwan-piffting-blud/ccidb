@@ -114,7 +114,7 @@ var deleteimage = document.getElementById('deleteimage');
 var back = document.getElementById('back');
 var obverse = document.getElementById('obverse');
 var reverse = document.getElementById('reverse');
-var navaway = document.getElementById('navaway');
+var navaway = document.getElementsByClassName('navaway');
 
 var newwindowtargets = document.getElementsByClassName("new_window");
 var myregex = /\#(\d{12})/g;
@@ -173,10 +173,12 @@ if(reverse !== null) {
 }
 
 if(navaway !== null) {
-    navaway.addEventListener("click", function () { 
-        window.addEventListener('beforeunload', (event) => {
-          event.preventDefault();
-          event.returnValue = '';
-        });
-    }, false);
+    for(var i = 0; i < navaway.length; i++) {
+		navaway.item(i).addEventListener("click", function () { 
+			window.addEventListener('beforeunload', (event) => {
+				event.preventDefault();
+				event.returnValue = '';
+			});
+		}, false);
+	}
 }

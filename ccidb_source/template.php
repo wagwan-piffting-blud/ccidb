@@ -13,7 +13,7 @@ else {
 			<meta name="robots" content="noindex, nofollow">
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel="stylesheet" href="/css/ccidb.php">
+			<link rel="subresource stylesheet" href="/css/ccidb.php">
 			
 			<!-- Discord/OGP Meta Tags -->
     		<meta property="og:title" content="Coin Collection Information DataBase" />
@@ -53,7 +53,7 @@ else {
 			<meta name="robots" content="noindex, nofollow">
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel="stylesheet" href="/css/ccidb.php">
+			<link rel="subresource stylesheet" href="/css/ccidb.php">
 			
 			<!-- Discord/OGP Meta Tags -->
     		<meta property="og:title" content="Coin Collection Information DataBase" />

@@ -20,8 +20,8 @@ function echodoc() {
 				<?php require_once("outputs.php"); ?>
 				<div class="supercentercont">
 				    <div class="supercenter">
-                        <button type="submit" form="searchform">Submit</button>
-				        <a href="index.php" id="navaway"><button type="button">Return to top page</button></a>  
+                        <button type="submit" class="" form="searchform">Submit</button>
+				        <a class="navaway" href="index.php"><button class="navaway" type="button">Return to top page</button></a>    
 				    </div>
 				</div>
 				<script src="enter.js"></script>
@@ -73,8 +73,10 @@ if(isset($_POST['csrf'])) {
 				
 				$result = $stmt->execute();
 				
-				/*var_dump(get_defined_vars());
-				die();*/
+				//var_dump($sql);
+				//die();
+				//var_dump(get_defined_vars());
+				//die();
 				
 				if($result) {
 					$nrows = 0;
