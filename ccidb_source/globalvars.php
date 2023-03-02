@@ -1,7 +1,7 @@
 <?php 
 
 //Version number using semantic versioning system. https://semver.org/
-$version = "1.0.0";
+$version = "1.1.0";
 
 $sessionstartfile = "requires/session_start.php";
 $dbfile = "requires/database.php";
