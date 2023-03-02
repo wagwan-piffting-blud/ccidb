@@ -1,8 +1,3 @@
-# IMPORTANT: IF YOU ARE ON WINDOWS AND WISH TO INSTALL CCIDB, PLEASE SEE THE BELOW ISSUE BEFORE DOING SO!!!
-# https://github.com/wagwan-piffting-blud/ccidb/issues/2
-
----
-
 ![CCIDB_Banner](https://user-images.githubusercontent.com/68403205/194215029-76fde9a1-960e-4753-bd92-cd5fd11125a5.png)
 # CCIDB (Coin Collection Information DataBase)
 
